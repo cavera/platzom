@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Platzom</title>
+</head>
+
+<body>
+    <script>
+        function platzom(str) {
+            let translation = str
+                // si termina en 'ar' se quita
+
+            if (str.toLowerCase().endsWith('ar')) {
+                translation = str.slice(0, -2)
+            }
+
+            // si comienza con 'z' se agrega 'pe' al final
+
+            if (str.toLowerCase().startsWith('z')) {
+                translation += 'pe'
+            }
+
+            // si tiene mas de 0 letras, partir a la mitad y unir con un guión
+            const length = translation.length
+            if (length >= 10) {
+                const half = Math.round(length / 2),
+                    firstHalf = translation.slice(0, half),
+                    secondHalf = translation.slice(half)
+
+                translation = `${firstHalf}-${secondHalf}`
+            }
+
+            // si es un palindromo, se alternan mayusculas y minusculas
+
+            const reverse = (str) => str.split('').reverse().join('')
+
+            function minMay(str) {
+                const length = str.length
+                let translation = '',
+                    capitalize = true
+
+                for (let i = 0; i < length; i++) {
+                    const char = str.charAt(i)
+                    translation += capitalize ? char.toUpperCase() : char.toLowerCase()
+                    capitalize = !capitalize
+                }
+                return translation
+            }
+
+            if (str == reverse(str)) {
+                return minMay(str)
+            }
+
+            return translation
+        }
+
+        console.log(platzom('Programar'))
+        console.log(platzom('Zumba'))
+        console.log(platzom('Zumbar'))
+        console.log(platzom('abecedario'))
+        console.log(platzom('esternocleidomastoideo'))
+        console.log(platzom('sometemos'))
+        console.log(platzom('dabalearrozalazorraelabad'))
+    </script>
+</body>
+
+</html>
